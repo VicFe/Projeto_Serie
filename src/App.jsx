@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 function App() {
   const [character, setCharacter] = useState(null);
   const [currentCharacterId, setCurrentCharacterId] = useState(1);
-
+  
   useEffect(() => {
     fetchCharacter(currentCharacterId);
   }, [currentCharacterId]);
@@ -28,7 +28,7 @@ function App() {
   }
 
   function handleSearchButtonClick() {
-    const id = parseInt(document.getElementById('character-id-input').value);
+    const id = parseInt(currentCharacterId);
     if (!isNaN(id)) {
       setCurrentCharacterId(id);
     }
@@ -66,7 +66,8 @@ function App() {
         <button id="next-button" onClick={handleNextButtonClick}>Próximo</button>
       </div>
       <div className="search-container">
-        <input type="number" id="character-id-input" placeholder="Buscar personagem pelo ID" />
+        <input type="number" id="character-id-input" placeholder="Buscar personagem pelo ID" value={currentCharacterId}
+                onChange={(element) => setCurrentCharacterId(element.target.value)}/>
         <button id="search-button" onClick={handleSearchButtonClick}>Buscar</button>
       </div>
     </div>
