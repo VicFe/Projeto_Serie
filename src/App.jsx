@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 function App() {
   const [character, setCharacter] = useState(null);
   const [currentCharacterId, setCurrentCharacterId] = useState(1);
-  
+
   useEffect(() => {
     fetchCharacter(currentCharacterId);
   }, [currentCharacterId]);
@@ -56,9 +56,10 @@ function App() {
       <div className="episode-list">
         <h2>Episódios</h2>
         <ul>
-          {character && character.episode.map((episode, index) => (
-            <li key={index}>{episode}</li>
-          ))}
+          {character && character.episode.map((episodeUrl, index) => {
+            const episodeNumber = episodeUrl.split("/").pop();
+            return <li key={index}> episode: {episodeNumber}</li>;
+          })}
         </ul>
       </div>
       <div className="button-container">
@@ -67,7 +68,7 @@ function App() {
       </div>
       <div className="search-container">
         <input type="number" id="character-id-input" placeholder="Buscar personagem pelo ID" value={currentCharacterId}
-                onChange={(element) => setCurrentCharacterId(element.target.value)}/>
+          onChange={(element) => setCurrentCharacterId(element.target.value)} />
         <button id="search-button" onClick={handleSearchButtonClick}>Buscar</button>
       </div>
     </div>
